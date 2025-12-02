@@ -53,6 +53,44 @@ Now, the Stack becomes empty, which means we have visited all the nodes, and our
  <li>Find its Successors Or neighbors and Check whether the node is visited or not</li>
  <li>If Not Visited, add it to the STACK. Else Call The Function Again Until No more nodes needs to be visited.</li>
 </ol></B>
+##Program
+# Depth First Search (DFS) Implementation
+
+def dfs(graph, start):
+    visited = set()
+    stack = [start]
+    traversal = []
+
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            traversal.append(node)
+            # Add neighbors in reverse order to match sample output
+            stack.extend(reversed([nbr for nbr in graph[node] if nbr not in visited]))
+
+    return traversal
+
+
+# Driver code
+if __name__ == "__main__":
+    n, e = map(int, input().split())
+    graph = {}
+
+    for _ in range(e):
+        u, v = input().split()
+        if u not in graph:
+            graph[u] = []
+        if v not in graph:
+            graph[v] = []
+        graph[u].append(v)
+        graph[v].append(u)
+
+    # Start DFS from the first node given in the first edge
+    start_node = list(graph.keys())[0]
+
+    result = dfs(graph, start_node)
+    print(result)
 
 <hr>
 <h3>Sample Input</h3>
@@ -87,6 +125,8 @@ F H <BR>
 <h3>Sample Output</h3>
 <hr>
 ['0', '1', '2', '3', '4']
+<img width="381" height="302" alt="image" src="https://github.com/user-attachments/assets/101520a6-1781-42f1-b3c6-2a9a8c8e4fa7" />
+
 
 <hr>
 <h3>Result:</h3>
